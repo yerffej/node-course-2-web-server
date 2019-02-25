@@ -54,6 +54,13 @@ app.get('/bad', (req, res) => {
   });
 });
 
+app.get('/projects', (req,res) => {
+  res.render('projects.hbs', {
+    pageTitle: 'Projects',
+    welcomeMessage: 'A list of recent or noteworthy builds'
+  });
+});
+
 
 // set up a port to listen for get requests
 app.listen(port, () => {
