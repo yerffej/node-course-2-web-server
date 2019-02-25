@@ -30,7 +30,9 @@ app.use(express.static(__dirname + '/public'));
 hbs.registerHelper('getCurrentYear', () => {
   return new Date().getFullYear();
 });
-
+hbs.registerHelper('siteHost', (text) => {
+  return (port === 3000) ? `DEV: ${text}` : text;
+})
 hbs.registerHelper('screamIt', (text) => {
   return text.toUpperCase();
 });
@@ -48,12 +50,6 @@ app.get('/about', (req, res) => {
   });
 });
 
-app.get('/bad', (req, res) => {
-  res.send({
-    errorMessage: 'request did not work'
-  });
-});
-
 app.get('/projects', (req,res) => {
   res.render('projects.hbs', {
     pageTitle: 'Projects',
@@ -61,6 +57,11 @@ app.get('/projects', (req,res) => {
   });
 });
 
+app.get('/bad', (req, res) => {
+  res.send({
+    errorMessage: 'request did not work'
+  });
+});
 
 // set up a port to listen for get requests
 app.listen(port, () => {
